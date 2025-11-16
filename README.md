@@ -1,9 +1,9 @@
-# Kredi Risk Tahminleme
+# Case Study 1– Kredi Risk Tahminleme
 Bu çalışma, kredi riski modellemesi odağında hazırlanmıştır. Veri temizleme, tutarsızlıkların giderilmesi, feature engineering, modelleme, hiperparametre optimizasyonu ve model performans analizini kapsamaktadır.
 
 Case 1 için tüm analizler ve açıklamalar, yorum satırlarıyla birlikte ayrıntılı biçimde Jupyter Notebook içinde sunulmuştur: case1_credit_risk/credit_risk_analysis_and_modeling.ipynb
 
-# Case Study Projesi – Konu Bazlı Arama + Duygu Analizi + Düşük Kaynak Optimizasyonu
+# Case Study 2– Konu Bazlı Arama + Duygu Analizi + Düşük Kaynak Optimizasyonu
 
 Bu proje, 50.000 adet müşteri geri bildiriminden oluşan büyük bir veri seti üzerinde çalışan RAG (Retrieval-Augmented) tabanlı hızlı duygu analizi asistanı sunar.
 
@@ -14,7 +14,7 @@ Projenin amacı:
 - RAG ve Non-RAG yöntemlerini karşılaştırmak
 
 
-Case Study kapsamında istenen 4 ana görevi karşılar:
+Case Study kapsamında istenen 4 ana görev:
 
 1. Topic-Based Retrieval & Sentiment (RAG Baseline)
 - FAISS ile semantik arama
@@ -29,8 +29,6 @@ Case Study kapsamında istenen 4 ana görevi karşılar:
 
 3. Düşük Kaynak İçin Optimize Edilmiş Tasarım
 - Tüm yorumlar yerine 32 şablon üzerinde çalışma
-- FAISS ile anında geri getirme
-- Sorgu anında model çalıştırmadan duygu tahmini
 - Hafif, üretim ortamına uygun yaklaşım
 
 4. İş Birimlerine Sunulabilir Analitik Çıktılar
@@ -40,7 +38,7 @@ Case Study kapsamında istenen 4 ana görevi karşılar:
 - Şablon bazlı içgörü grafikleri
 
 ## Proje Mimarisi
-DATA_SCIENTIST_CASE_STUDY/
+```DATA_SCIENTIST_CASE_STUDY/
 │
 ├── README.md                 # Genel proje açıklaması (Case1 + Case2)
 ├── requirements.txt
@@ -76,14 +74,12 @@ DATA_SCIENTIST_CASE_STUDY/
 │   │   └── app.py
 │   │
 │   └── rag_prototyping_anad_analysis.ipynb
-
-
+```
 
 ## Kurulum
-git clone <repo-url>
+git clone <https://github.com/umutky/data-scientist-case-study.git>
 cd project-folder
 pip install -r requirements.txt
-
 
 ## Pipeline Adımları
 ### 1. Data Preprocessing
@@ -94,17 +90,12 @@ Bu script:
 - Her şablonun tekrar sayısını ve ortalama puanını hesaplar
 - Sonucu kaydeder: artifacts/temp_templates.csv
 
-Neden önemli?
-Büyük veri setini 32 özet noktaya indirerek hem hız hem de basitlik sağlayan bir yapı oluşturur.
-
 ### 2. FAISS Index + Sentiment Skorları Üretimi
 Çalıştır: python src/index_builder.py
 Bu script:
-	1.	savasy/bert-base-turkish-sentiment-cased modeli ile
-32 şablonun duygu skorlarını hesaplar.
+	1.	savasy/bert-base-turkish-sentiment-cased modeli ile 32 şablonun duygu skorlarını hesaplar.
 	2.	manual_rules.json dosyası varsa hatalı görülen etiketler düzeltilir.
-	3.	sentence-transformers modeli ile
-şablon embedding’lerini çıkarır.
+	3.	sentence-transformers modeli ile template embedding’lerini çıkarır.
 	4.	FAISS ile semantik arama index’i oluşturur.
 Çıktılar:
 - df_templates_with_scores.csv
@@ -123,14 +114,14 @@ Bu script:
 
 
 ## Elde Edilen İç Görüler
-![Title Bazlı Ağırlıklı Ortalama Duygu Skoru](image.png)
+![Title Bazlı Ağırlıklı Ortalama Duygu Skoru](case2_rag_sentiment/images/image.png)
 
-![Top 5 Negatif Yorum](image-1.png)
+![Top 5 Negatif Yorum](case2_rag_sentiment/images/image-1.png)
 Burada kullandığımız pre-trained BERT modelinin, bazı cümleleri yanlış sınıflandırdığını görebilmekteyiz. Bu kurmuş olduğumuz yapıdan kaynaklı değil, BERT modelinin cümleyi yanlış sınıflandırmasından kaynaklıdır.
 
-![Top 5 Pozitif Yorum](image-2.png)
+![Top 5 Pozitif Yorum](case2_rag_sentiment/images/image-2.png)
 
-![Tanımlanan Skorlar vs Anlamsal Skorlar](image-3.png)
+![Tanımlanan Skorlar vs Anlamsal Skorlar](case2_rag_sentiment/images/image-3.png)
 Yapılan analizlerde de görülmüştür ki veri seti içerisinde neredeyse her yorum için ortalama Score değeri aynıdır. Bu da aslında bu değerlerin gürültülü (noisy) olduğunun bir göstergesidir. Bu skorların yerine RAG mimarimizin sonucunda elde ettiğimiz skorların daha anlamlı olduğunu görmekteyiz.
 
 **NOT:** Analizler, pre-trained sentiment modelinin nötr yorumları doğru sınıflandırmada başarısız olduğunu ortaya koymuştur. Bu nedenle ilerleyen aşamalarda rule-based iyileştirmeler veya daha gelişmiş modellerle yeniden kalibrasyon yapılabilir.
