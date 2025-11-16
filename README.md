@@ -141,4 +141,4 @@ Yapılan analizlerde de görülmüştür ki veri seti içerisinde neredeyse her 
 Bu mekanizma:
 - Modelin hatalı etiketlediği şablonları düzeltmek
 - Domain expert bilgisini sisteme katmak
-- Üretim ortamında yüksek kontrol sağlamak için eklenmiştir.
+- Üretim ortamında yüksek kontrol sağlamak.
