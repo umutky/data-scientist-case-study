@@ -1,0 +1,11 @@
+pandas
+openpyxl
+numpy
+scikit-learn
+transformers
+torch
+sentence-transformers
+faiss-cpu
+matplotlib
+seaborn
+tqdm
