@@ -1,6 +1,6 @@
 pandas
-openpyxl
 numpy
+openpyxl
 scikit-learn
 transformers
 torch
@@ -9,3 +9,7 @@ faiss-cpu
 matplotlib
 seaborn
 tqdm
+xgboost
+imbalanced-learn
+statsmodels
+optuna
