@@ -44,7 +44,7 @@ data-scientist-case-study/
     │
     ├── src/
     │   ├── config/
-    │   │   └── settings.py                    # Yol & model ayarları (DATA_FILE_PATH, ARTIFACT_DIR, MODEL isimleri vs.)
+    │   │   └── settings.py                    # Yol & model ayarları
     │   │
     │   ├── data/
     │   │   ├── data_preprocessor.py           # 50k yorumu 32 template’e indirger, temp_templates.csv üretir
@@ -52,11 +52,11 @@ data-scientist-case-study/
     │   │
     │   ├── rag/
     │   │   ├── index_builder.py               # Sentiment hesaplar, manual_rules uygular, FAISS index üretir
-    │   │   ├── retriever.py                   # FAISS tabanlı semantik arama (query → top-k template)
-    │   │   └── rag_pipeline.py                # RAG pipeline (query → semantik arama + weighted sentiment)
+    │   │   ├── retriever.py                   # FAISS tabanlı semantik arama (query: top-k template arar)
+    │   │   └── rag_pipeline.py                # RAG pipeline (query: semantik arama + weighted sentiment)
     │   │
     │   ├── non_rag/
-    │   │   ├── normalize.py                   # Türkçe metin normalizasyonu (lowercase, accent removal, punctuation)
+    │   │   ├── normalize.py                   # Türkçe metin normalizasyonu (lowercase, noktalama vb.)
     │   │   ├── lexical_search.py              # keyword / substring tabanlı arama
     │   │   └── pipeline.py                    # Non-RAG sentiment pipeline (keyword match + BERT sentiment)
     │   │
@@ -64,8 +64,8 @@ data-scientist-case-study/
     │   │   └── evaluate.py                    # RAG vs Non-RAG hız & sentiment kıyaslama script’i
     │   │
     │   └── app/
-    │       ├── rag_app.py                     # CLI RAG asistan: semantik konu bazlı arama + hızlı sentiment
-    │       └── non_rag_app.py                 # CLI Non-RAG asistan: keyword arama + sentiment
+    │       ├── rag_app.py                     # RAG asistan: semantik konu bazlı arama + hızlı sentiment
+    │       └── non_rag_app.py                 # Non-RAG asistan: keyword arama + sentiment
     │
     └── rag_prototyping_anad_analysis.ipynb    # Prototipleme ve keşif amaçlı notebook
 ```
@@ -180,7 +180,6 @@ Non-RAG pipeline initialized.
 --- Evaluating query: 'finansman' ---
 
 === Evaluation Completed ===
-Results saved → /Users/umutkaya/Documents/data_scientist_case_study/src/artifacts/evaluation_results.csv
 
              query  rag_sentiment  non_rag_sentiment  sentiment_diff  rag_count  non_rag_count  rag_latency_ms  non_rag_latency_ms  count_ratio_rag_over_non
              kredi      -0.400051          -0.375599       -0.024451       7894          25032      100.287875        23391.018833                  0.315356
