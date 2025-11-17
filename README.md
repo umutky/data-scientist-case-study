@@ -14,29 +14,6 @@ Projenin amacı:
 - RAG ve Non-RAG yöntemlerini karşılaştırmak
 
 
-Case Study kapsamında istenen 4 ana görev:
-
-1. Topic-Based Retrieval & Sentiment (RAG Baseline)
-- FAISS ile semantik arama
-- İlgili yorumları template tabanlı geri getirme
-- Kategorik ve sayısal duygu skorları üretme
-
-2. RAG vs Non-RAG Karşılaştırması
-- Hız
-- Ölçeklenebilirlik
-- Donanım tüketimi
-- Anlamsal doğruluk
-
-3. Düşük Kaynak İçin Optimize Edilmiş Tasarım
-- Tüm yorumlar yerine 32 şablon üzerinde çalışma
-- Hafif, üretim ortamına uygun yaklaşım
-
-4. İş Birimlerine Sunulabilir Analitik Çıktılar
-- Yorum hacmi analizi
-- Pozitif/negatif/nötr dağılımı
-- Konu bazlı duygu kırılımı
-- Şablon bazlı içgörü grafikleri
-
 ## Proje Mimarisi
 ```DATA_SCIENTIST_CASE_STUDY/
 │
@@ -86,9 +63,10 @@ pip install -r requirements.txt
 ## Pipeline Adımları
 ### 1. Data Preprocessing
 Çalıştır: python src/data_preprocessor.py
+
 Bu script:
 - 50.000 satırı okur
-- 32 benzersiz şablon çıkarır
+- benzersiz yorum şablonu çıkarır (Çalışma sürecinde 50000 yorumun aslında 32 temel yoruma dayandığını tespit ettiğim için yaptım, bu sayede kaynak kullanımı azaltıldı)
 - Her şablonun tekrar sayısını ve ortalama puanını hesaplar
 - Sonucu kaydeder: artifacts/temp_templates.csv
 
@@ -100,11 +78,12 @@ Bu script:
 	2.	manual_rules.json dosyası varsa hatalı görülen etiketler düzeltilir.
 	3.	sentence-transformers modeli ile template embedding’lerini çıkarır.
 	4.	FAISS ile semantik arama index’i oluşturur.
+	
 Çıktılar:
 - df_templates_with_scores.csv
 - faiss_template_index.idx
 
-**NOT**: manual_rules.json içerisien bütün eklemeler yapılmamıştır, burada amaç istenildiği zaman rule based bir yapıyla yapının kuvvetlendirilebileceğini göstermektir. Benzer şekilde bu yapı BERT yerine farklı modeller kullanılarak da kuvvetlendirilebilir.
+**NOT**: manual_rules.json içerisien bütün eklemeler yapılmamıştır, burada amaç istenildiği zaman rule based bir yapıyla yapının kuvvetlendirilebileceğini göstermektir. Ayrıca bu yapı BERT yerine farklı modeller kullanılarak da kuvvetlendirilebilir.
 
 ### RAG Pipeline Çalıştırma
 Çalıştır: python app.py
@@ -129,7 +108,7 @@ Burada kullandığımız pre-trained BERT modelinin, bazı cümleleri yanlış s
 ![Tanımlanan Skorlar vs Anlamsal Skorlar](case2_rag_sentiment/images/image-3.png)
 Yapılan analizlerde de görülmüştür ki veri seti içerisinde neredeyse her yorum için ortalama Score değeri aynıdır. Bu da aslında bu değerlerin gürültülü (noisy) olduğunun bir göstergesidir. Bu skorların yerine RAG mimarimizin sonucunda elde ettiğimiz skorların daha anlamlı olduğunu görmekteyiz.
 
-**NOT:** Analizler, pre-trained sentiment modelinin nötr yorumları doğru sınıflandırmada başarısız olduğunu ortaya koymuştur. Bu nedenle ilerleyen aşamalarda rule-based iyileştirmeler veya daha gelişmiş modellerle yeniden kalibrasyon yapılabilir.
+**NOT:** Analizler, pre-trained sentiment modelinin bazı yorumları sınıflandırmada başarısız olduğu tespit edilmiştir. Bu durum rule-based iyileştirmeler veya daha gelişmiş modellerle yeniden kalibrasyon yapılarak geliştirilebilir.
 
 
 ## Manuel Kural Sistemi
