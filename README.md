@@ -14,29 +14,6 @@ Projenin amacı:
 - RAG ve Non-RAG yöntemlerini karşılaştırmak
 
 
-Case Study kapsamında istenen 4 ana görev:
-
-1. Topic-Based Retrieval & Sentiment (RAG Baseline)
-- FAISS ile semantik arama
-- İlgili yorumları template tabanlı geri getirme
-- Kategorik ve sayısal duygu skorları üretme
-
-2. RAG vs Non-RAG Karşılaştırması
-- Hız
-- Ölçeklenebilirlik
-- Donanım tüketimi
-- Anlamsal doğruluk
-
-3. Düşük Kaynak İçin Optimize Edilmiş Tasarım
-- Tüm yorumlar yerine 32 şablon üzerinde çalışma
-- Hafif, üretim ortamına uygun yaklaşım
-
-4. İş Birimlerine Sunulabilir Analitik Çıktılar
-- Yorum hacmi analizi
-- Pozitif/negatif/nötr dağılımı
-- Konu bazlı duygu kırılımı
-- Şablon bazlı içgörü grafikleri
-
 ## Proje Mimarisi
 ```
 data-scientist-case-study/
@@ -117,7 +94,7 @@ Bu script:
 - df_templates_with_scores.csv
 - faiss_template_index.idx
 
-**NOT**: manual_rules.json içerisien bütün eklemeler yapılmamıştır, burada amaç istenildiği zaman rule based bir yapıyla yapının kuvvetlendirilebileceğini göstermektir. Benzer şekilde bu yapı BERT yerine farklı modeller kullanılarak da kuvvetlendirilebilir.
+**NOT**: manual_rules.json içerisien bütün eklemeler yapılmamıştır, burada amaç istenildiği zaman rule based bir yapıyla yapının kuvvetlendirilebileceğini göstermektir. Ayrıca bu yapı BERT yerine farklı modeller kullanılarak da kuvvetlendirilebilir.
 
 ### 3. RAG Pipeline Çalıştırma
 Çalıştır: python -m src.app.rag_app
