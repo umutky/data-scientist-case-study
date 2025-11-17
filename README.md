@@ -78,7 +78,9 @@ Case Study kapsamında istenen 4 ana görev:
 
 ## Kurulum
 git clone <https://github.com/umutky/data-scientist-case-study.git>
+
 cd project-folder
+
 pip install -r requirements.txt
 
 ## Pipeline Adımları
@@ -92,6 +94,7 @@ Bu script:
 
 ### 2. FAISS Index + Sentiment Skorları Üretimi
 Çalıştır: python src/index_builder.py
+
 Bu script:
 	1.	savasy/bert-base-turkish-sentiment-cased modeli ile 32 şablonun duygu skorlarını hesaplar.
 	2.	manual_rules.json dosyası varsa hatalı görülen etiketler düzeltilir.
@@ -105,7 +108,9 @@ Bu script:
 
 ### RAG Pipeline Çalıştırma
 Çalıştır: python app.py
+
 Örnek kullanım: > kredi başvurusu
+
 Çıktılar:
 - Sorguyla en alakalı şablonlar
 - Her şablonun temsil ettiği yorum sayısı
@@ -138,6 +143,7 @@ Yapılan analizlerde de görülmüştür ki veri seti içerisinde neredeyse her 
         }
     ]
 }
+
 Bu mekanizma:
 - Modelin hatalı etiketlediği şablonları düzeltmek
 - Domain expert bilgisini sisteme katmak
