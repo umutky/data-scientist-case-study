@@ -1,5 +1,5 @@
 # src/app/rag_app.py
-from src.rag.rag_pipeline import SentimentRAG
+from case2_rag_sentiment.src.rag.rag_pipeline import SentimentRAG
 
 def print_header():
     print("\nRAG Pipeline loading...")

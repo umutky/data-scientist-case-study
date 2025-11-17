@@ -2,8 +2,8 @@
 from transformers import pipeline
 from collections import Counter
 import numpy as np
-from src.non_rag.lexical_search import LexicalSearcher
-from src.config.settings import SENTIMENT_MODEL
+from case2_rag_sentiment.src.non_rag.lexical_search import LexicalSearcher
+from case2_rag_sentiment.src.config.settings import SENTIMENT_MODEL
 
 class NonRAGPipeline:
     def __init__(self, feedback_list):

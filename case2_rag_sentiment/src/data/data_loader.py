@@ -1,5 +1,5 @@
 import pandas as pd
-from src.config.settings import DATA_FILE_PATH
+from case2_rag_sentiment.src.config.settings import DATA_FILE_PATH
 
 def load_feedback():
     df = pd.read_excel(DATA_FILE_PATH)

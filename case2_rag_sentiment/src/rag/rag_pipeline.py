@@ -2,17 +2,26 @@ import pandas as pd
 import faiss
 from sentence_transformers import SentenceTransformer
 
-from src.rag.retriever import FaissRetriever
-from src.config.settings import (
-    EMBEDDING_MODEL, TEMPLATES_PATH, FAISS_INDEX_PATH
+from case2_rag_sentiment.src.rag.retriever import FaissRetriever
+from case2_rag_sentiment.src.config.settings import (
+    TEMPLATES_PATH,
+    FAISS_INDEX_PATH,
+    EMBEDDING_MODEL
 )
+
 
 class SentimentRAG:
     def __init__(self):
+        # load templates
         self.df_templates = pd.read_csv(TEMPLATES_PATH)
+
+        # load FAISS index
         self.index = faiss.read_index(FAISS_INDEX_PATH)
+
+        # load embedder
         self.embedder = SentenceTransformer(EMBEDDING_MODEL)
 
+        # retriever
         self.retriever = FaissRetriever(self.index, self.embedder)
 
     def query(self, query_text, top_k=5):

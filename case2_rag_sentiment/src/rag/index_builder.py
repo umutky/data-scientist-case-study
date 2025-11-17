@@ -7,7 +7,7 @@ from transformers import pipeline
 from sentence_transformers import SentenceTransformer
 import json
 
-from src.config.settings import (
+from case2_rag_sentiment.src.config.settings import (
     SENTIMENT_MODEL,
     EMBEDDING_MODEL,
     FAISS_INDEX_PATH,

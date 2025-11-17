@@ -4,9 +4,9 @@ import os
 import time
 import pandas as pd
 
-from src.config.settings import DATA_FILE_PATH, ARTIFACT_DIR
-from src.rag.rag_pipeline import SentimentRAG
-from src.non_rag.pipeline import NonRAGPipeline
+from case2_rag_sentiment.src.config.settings import DATA_FILE_PATH, ARTIFACT_DIR
+from case2_rag_sentiment.src.rag.rag_pipeline import SentimentRAG
+from case2_rag_sentiment.src.non_rag.pipeline import NonRAGPipeline
 
 
 RESULTS_PATH = os.path.join(ARTIFACT_DIR, "evaluation_results.csv")

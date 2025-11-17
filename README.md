@@ -20,44 +20,54 @@ data-scientist-case-study/
 │
 ├── README.md
 ├── requirements.txt
-├── .venv/
 │
 ├── case1_credit_risk/
 │   ├── credit_risk_case.xlsx
 │   └── credit_risk_analysis_and_modeling.ipynb
 │
-├── case2_rag_sentiment/
-│   │
-│   ├── data/
-│   │   └── musteriyorumlari.xlsx
-│   │
-│   ├── artifacts/
-│   │   ├── temp_templates.csv
-│   │   ├── df_templates_with_scores.csv
-│   │   ├── faiss_template_index.idx
-│   │   └── manual_rules.json
-│   │
-│   ├── images/
-│   │   ├── image.png
-│   │   ├── image-1.png
-│   │   ├── image-2.png
-│   │   └── image-3.png
-│   │
-│   ├── src/
-│   │   ├── config/
-│   │   │   └── settings.py
-│   │   ├── data/
-│   │   │   └── data_preprocessor.py
-│   │   ├── rag/
-│   │   │   ├── index_builder.py
-│   │   │   ├── rag_pipeline.py
-│   │   │   └── rag_app.py
-│   │   ├── non_rag/
-│   │   │   └── non_rag_app.py
-│   │   └── evaluation/
-│   │       └── evaluate.py
-│   │
-│   └── rag_prototyping_and_analysis.ipynb
+└── case2_rag_sentiment/
+    ├── data/
+    │   └── musteriyorumlari.xlsx
+    │
+    ├── artifacts/
+    │   ├── temp_templates.csv                 # 32 template'in ham hali
+    │   ├── df_templates_with_scores.csv       # sentiment + rule override sonrası final template skorları
+    │   ├── faiss_template_index.idx           # FAISS semantik arama index'i
+    │   ├── evaluation_results.csv             # RAG vs Non-RAG evaluation çıktıları
+    │   └── manual_rules.json                  # Manuel sentiment override kuralları
+    │
+    ├── images/
+    │   ├── image.png                          # Title bazlı weighted sentiment grafiği
+    │   ├── image-1.png                        # Top 5 negatif template
+    │   ├── image-2.png                        # Top 5 pozitif template
+    │   └── image-3.png                        # Score vs semantik skor karşılaştırması
+    │
+    ├── src/
+    │   ├── config/
+    │   │   └── settings.py                    # Yol & model ayarları (DATA_FILE_PATH, ARTIFACT_DIR, MODEL isimleri vs.)
+    │   │
+    │   ├── data/
+    │   │   ├── data_preprocessor.py           # 50k yorumu 32 template’e indirger, temp_templates.csv üretir
+    │   │   └── data_loader.py                 # Ortak veri okuma fonksiyonları (Non-RAG için)
+    │   │
+    │   ├── rag/
+    │   │   ├── index_builder.py               # Sentiment hesaplar, manual_rules uygular, FAISS index üretir
+    │   │   ├── retriever.py                   # FAISS tabanlı semantik arama (query → top-k template)
+    │   │   └── rag_pipeline.py                # RAG pipeline (query → semantik arama + weighted sentiment)
+    │   │
+    │   ├── non_rag/
+    │   │   ├── normalize.py                   # Türkçe metin normalizasyonu (lowercase, accent removal, punctuation)
+    │   │   ├── lexical_search.py              # keyword / substring tabanlı arama
+    │   │   └── pipeline.py                    # Non-RAG sentiment pipeline (keyword match + BERT sentiment)
+    │   │
+    │   ├── evaluation/
+    │   │   └── evaluate.py                    # RAG vs Non-RAG hız & sentiment kıyaslama script’i
+    │   │
+    │   └── app/
+    │       ├── rag_app.py                     # CLI RAG asistan: semantik konu bazlı arama + hızlı sentiment
+    │       └── non_rag_app.py                 # CLI Non-RAG asistan: keyword arama + sentiment
+    │
+    └── rag_prototyping_anad_analysis.ipynb    # Prototipleme ve keşif amaçlı notebook
 ```
 
 ## Kurulum
@@ -202,7 +212,7 @@ Yapılan analizlerde de görülmüştür ki veri seti içerisinde neredeyse her 
 
 RAG tabanlı semantik skorlar çok daha tutarlı sonuçlar vermektedir. Örnek çıktıda görüldüğü üzere Non-RAG anlam değerlendirmesi yapmadan yalnızca kelimelerin birebir uyuştuğu yorumları almaktadır. 
 
-**NOT:** Analizler, pre-trained sentiment modelinin nötr yorumları doğru sınıflandırmada başarısız olduğunu ortaya koymuştur. Bu nedenle ilerleyen aşamalarda rule-based iyileştirmeler veya daha gelişmiş modellerle yeniden kalibrasyon yapılabilir.
+**NOT:** Analizler, pre-trained sentiment modelinin bazı yorumları doğru sınıflandırmada başarısız olduğunu ortaya koymuştur. Bu nedenle ilerleyen aşamalarda rule-based iyileştirmeler veya daha gelişmiş modellerle yeniden kalibrasyon yapılabilir. (belki modele fine-tune uygulanabilir)
 
 
 1. RAG (Retrieval-Augmented) Pipeline

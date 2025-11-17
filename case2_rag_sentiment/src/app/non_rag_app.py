@@ -1,7 +1,7 @@
 # src/app/non_rag_app.py
 import pandas as pd
-from src.non_rag.pipeline import NonRAGPipeline
-from src.config.settings import DATA_FILE_PATH
+from case2_rag_sentiment.src.non_rag.pipeline import NonRAGPipeline
+from case2_rag_sentiment.src.config.settings import DATA_FILE_PATH
 
 def print_header():
     print("\nNon-RAG Pipeline loading...")

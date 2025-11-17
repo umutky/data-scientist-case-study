@@ -1,5 +1,5 @@
 # src/non_rag/lexical_search.py
-from src.non_rag.normalize import normalize_text
+from case2_rag_sentiment.src.non_rag.normalize import normalize_text
 
 class LexicalSearcher:
     def __init__(self, feedback_list):

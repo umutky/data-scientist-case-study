@@ -1,7 +1,7 @@
 #data_preprocessor.py
 import os
 import pandas as pd
-from src.config.settings import DATA_FILE_PATH, ARTIFACT_DIR
+from case2_rag_sentiment.src.config.settings import DATA_FILE_PATH, ARTIFACT_DIR
 
 def preprocess_templates():
     print("Preprocessing feedback data...")
