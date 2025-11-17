@@ -58,13 +58,13 @@ class SentimentRAG:
         """
         print(f"\n=== RAG PIPELINE SORGUSU: '{query_text}' ===")
         
-        # 1. Arama
+        # 1-Arama
         template_ids, scores = self.rag_search(query_text, top_k=top_k)
         
-        # 2. Ağırlıklı Sentiment
+        # 2-Ağırlıklı Sentiment
         sentiment_score, total_comments, subset_df = self.get_weighted_sentiment(template_ids)
         
-        # 3. Sonuçları Göster
+        # 3-Sonuçları Göster
         print("\n--- Bulunan İlişkili Şablonlar ---")
         for idx, score in zip(template_ids, scores):
             feedback_text = self.df_templates.loc[idx, "Feedback"]

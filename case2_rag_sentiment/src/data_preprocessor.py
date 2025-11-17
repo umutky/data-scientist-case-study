@@ -19,7 +19,7 @@ def process_data():
     if missing:
         raise ValueError(f"Eksik kolon(lar): {missing}. Lütfen veri dosyasını kontrol edin.")
 
-    # 32 şablonu bulma (Notebook'unuzdaki kod)
+    # 32'lik şablonu çıkart
     df_templates = (
         df.groupby(["Title", "Feedback"])
           .agg(
@@ -33,7 +33,7 @@ def process_data():
     # Artifacts klasörünü kontrol et
     os.makedirs("artifacts", exist_ok=True)
     
-    # Şablonları kaydet (Ancak skorlar henüz yok)
+    # Şablonları kaydet
     df_templates.to_csv("artifacts/temp_templates.csv", index=False)
     
     print(f"{len(df_templates)} adet benzersiz şablon bulundu ve 'artifacts/temp_templates.csv' olarak kaydedildi.")

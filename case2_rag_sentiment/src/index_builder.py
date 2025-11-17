@@ -20,7 +20,7 @@ def build_and_save_artifacts():
         print("Lütfen önce 'src/data_preprocessor.py' scriptini çalıştırın.")
         return
 
-    # === 1. Sentiment Skorlarını Hesapla ===
+    # 1-Sentiment Skorlarını Hesapla 
     print(f"'{SENTIMENT_MODEL}' modeli ile 32 şablon için sentiment hesaplanıyor...")
     sentiment_model = pipeline("sentiment-analysis", model=SENTIMENT_MODEL, device=0) # GPU
     
@@ -37,7 +37,7 @@ def build_and_save_artifacts():
     df_templates["sentiment_label"] = [label_map.get(r['label'], 'neutral') for r in sentiment_results]
     df_templates["sentiment_score"] = [label_to_score[label] for label in df_templates["sentiment_label"]]
     
-    # === Manual Override Rules ===
+    # Manuel Kural Eklemeleri
     rules_path = "artifacts/manual_rules.json"
     if os.path.exists(rules_path):
         with open(rules_path, "r", encoding="utf-8") as f:
@@ -57,7 +57,7 @@ def build_and_save_artifacts():
     df_templates.to_csv(TEMPLATES_PATH, index=False)
     print(f"Sentiment skorları hesaplandı ve '{TEMPLATES_PATH}' dosyasına kaydedildi.")
 
-    # === 2. FAISS İndeksini Oluştur ===
+    # 2-FAISS İndeksini Oluştur
     print(f"'{EMBEDDING_MODEL}' modeli ile FAISS indeksi oluşturuluyor...")
     embed_model = SentenceTransformer(EMBEDDING_MODEL)
     template_embeddings = embed_model.encode(template_texts)

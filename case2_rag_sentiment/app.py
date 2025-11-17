@@ -3,7 +3,7 @@ import sys
 import os
 
 
-# Bu, src/... içindeki 'from config import ...' gibi importların çalışmasını sağlar
+# Bu, src/ içindeki importların çalışmasını sağlar
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), 'src')))
 
 from src.rag_pipeline import SentimentRAG
@@ -17,7 +17,7 @@ def main():
         print("Çıkılıyor.")
         sys.exit(1)
 
-    # Sürekli sorgu al (veya tek seferlik çalıştır)
+    # Sürekli sorgu al ve çalıştır
     print("\n--- RAG Duygu Analizi Asistanı ---")
     print("Sorgunuzu girin (çıkmak için 'exit' yazın):")
     
